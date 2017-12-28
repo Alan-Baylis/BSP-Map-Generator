@@ -9,15 +9,22 @@ namespace BSP_Map_Generator
 {
     public static class StaticData
     {
-        private static int scale;
-        private static double splitHorArg;
         public static Random rng;
+
+        private static int scale;
+        private static double splitHorArg;        
+        private static int max_width;
+        private static int max_height;
+        private static int roomCount;
 
         static StaticData()
         {
             rng = new Random(Environment.TickCount);
             scale = 10;
-            splitHorArg = 0.2;
+            splitHorArg = 0.1;
+            max_width = 6;
+            max_height = 6;
+            roomCount = 0;
         }
 
         public static int Scale
@@ -30,6 +37,34 @@ namespace BSP_Map_Generator
             set
             {
                 scale = value;
+                max_width = max_width * value;
+                max_height = max_height * value;
+            }
+        }
+
+        public static int MaxWidth
+        {
+            get
+            {
+                return max_width;
+            }
+
+            set
+            {
+                max_width = value * scale;
+            }                
+        }
+
+        public static int MaxHeight
+        {
+            get
+            {
+                return max_height;
+            }
+
+            set
+            {
+                max_height = value * scale;
             }
         }
 
@@ -45,7 +80,24 @@ namespace BSP_Map_Generator
                 splitHorArg = value;
             }
         }
-       
+
+        public static int RoomCount
+        {
+            get
+            {               
+                return roomCount;
+            }
+        }
+
+        public static int SetRoomID()
+        {
+            return roomCount++;
+        }
+
+       public static void ResetRoomCount()
+        {
+            roomCount = 0;
+        }
     }
 
     public class Leaf
@@ -54,7 +106,7 @@ namespace BSP_Map_Generator
 
         public int x, y;
         public int width, height;
-        //private int scale = StaticData.Scale;        
+        private int idRoom;           
 
         public Leaf leftChild;
         public Leaf rightChild;
@@ -136,9 +188,30 @@ namespace BSP_Map_Generator
                 Point roomSize;
                 Point roomPos;
 
-                roomSize = new Point(StaticData.rng.Next(3*StaticData.Scale, width - 2*StaticData.Scale), StaticData.rng.Next(3*StaticData.Scale, height - 2*StaticData.Scale));
+                //roomSize = new Point(StaticData.rng.Next(3*StaticData.Scale, width - 2*StaticData.Scale), StaticData.rng.Next(3*StaticData.Scale, height - 2*StaticData.Scale));
+                roomSize = new Point(StaticData.rng.Next(width / 2, width - 2 * StaticData.Scale), StaticData.rng.Next(height / 2, height - 2 * StaticData.Scale));
                 roomPos = new Point(StaticData.rng.Next(StaticData.Scale, width - roomSize.X - StaticData.Scale), StaticData.rng.Next(StaticData.Scale, height - roomSize.Y - StaticData.Scale));
                 room = new Rectangle(x + roomPos.X, y + roomPos.Y, roomSize.X, roomSize.Y);
+                idRoom = StaticData.SetRoomID();
+            }
+        }
+
+        public bool RoomExist
+        {
+            get
+            {
+                if (room.IsEmpty)
+                    return false;
+
+                return true;
+            }            
+        }
+
+        public int RoomID
+        {
+            get
+            {
+                return idRoom;
             }
         }
 

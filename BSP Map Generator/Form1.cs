@@ -13,10 +13,10 @@ namespace BSP_Map_Generator
     public partial class Form1 : Form
     {
         int MAX_SIZE = 40;
+        int MAX_WIDTH;        
         List<Leaf> leafs = new List<Leaf>();
         Leaf root;
-        bool didSplit = true;
-        Random rng = new Random();
+        bool didSplit = true;        
 
         public Form1()
         {
@@ -27,10 +27,16 @@ namespace BSP_Map_Generator
         {
             leafs = new List<Leaf>();
             MAX_SIZE = Convert.ToInt32(tbMaxSize.Text);
+
             StaticData.Scale = Convert.ToInt32(tbScale.Text);
-            //StaticData.SplitHorArg = Convert.ToDouble(tbScale.Text);
+            StaticData.SplitHorArg = Convert.ToDouble(tbSplit.Text);
+            StaticData.MaxWidth = 25;
+            StaticData.MaxHeight = 10;
+            StaticData.ResetRoomCount();
+            
             root = new Leaf(0, 0, 950, 500);
             leafs.Add(root);
+            didSplit = true;
 
             while (didSplit)
             {
@@ -40,7 +46,7 @@ namespace BSP_Map_Generator
                 {
                     if (leafs[i].leftChild == null && leafs[i].rightChild == null)
                     {
-                        if (leafs[i].width > MAX_SIZE || leafs[i].height > MAX_SIZE || rng.NextDouble() > 0.25)
+                        if (leafs[i].width > StaticData.MaxWidth || leafs[i].height > StaticData.MaxHeight || StaticData.rng.NextDouble() > 0.99999)
                         {
                             if (leafs[i].Split())
                             {
@@ -53,8 +59,9 @@ namespace BSP_Map_Generator
                     }
                 }
             }
-
+            
             root.CreateRooms();
+            tbRoomCount.Text = Convert.ToString(StaticData.RoomCount);
 
             MessageBox.Show("Construction completed successfully");
         }
@@ -77,8 +84,16 @@ namespace BSP_Map_Generator
                 rect = new Rectangle(leafs[i].x, leafs[i].y, leafs[i].width, leafs[i].height);
                 e.Graphics.DrawRectangle(zonePen, rect);
 
-                rect = new Rectangle(leafs[i].room.X, leafs[i].room.Y, leafs[i].room.Width, leafs[i].room.Height);
-                e.Graphics.DrawRectangle(roomPen, rect);
+                if (leafs[i].RoomExist)
+                {                    
+                    rect = new Rectangle(leafs[i].room.X, leafs[i].room.Y, leafs[i].room.Width, leafs[i].room.Height);
+                    e.Graphics.DrawRectangle(roomPen, rect);
+
+                    Font f = new Font("Roboto", 14);
+                    e.Graphics.DrawString(Convert.ToString(leafs[i].RoomID), f, Brushes.Black, rect.X, rect.Y);
+                }
+
+                
 
                /* if (leafs[i].halls != null)
                 {
@@ -91,6 +106,11 @@ namespace BSP_Map_Generator
                 
             }
             
+        }
+
+        private void tbBreak_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
