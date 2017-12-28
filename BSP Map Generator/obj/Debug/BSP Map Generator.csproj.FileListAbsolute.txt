@@ -1,0 +1,9 @@
+c:\users\igor\documents\visual studio 2015\Projects\BSP Map Generator\BSP Map Generator\bin\Debug\BSP Map Generator.exe.config
+C:\Users\Igor\Documents\Visual Studio 2015\Projects\BSP Map Generator\BSP Map Generator\bin\Debug\BSP Map Generator.exe
+C:\Users\Igor\Documents\Visual Studio 2015\Projects\BSP Map Generator\BSP Map Generator\bin\Debug\BSP Map Generator.pdb
+C:\Users\Igor\Documents\Visual Studio 2015\Projects\BSP Map Generator\BSP Map Generator\obj\Debug\BSP Map Generator.csprojResolveAssemblyReference.cache
+C:\Users\Igor\Documents\Visual Studio 2015\Projects\BSP Map Generator\BSP Map Generator\obj\Debug\BSP_Map_Generator.Form1.resources
+C:\Users\Igor\Documents\Visual Studio 2015\Projects\BSP Map Generator\BSP Map Generator\obj\Debug\BSP_Map_Generator.Properties.Resources.resources
+C:\Users\Igor\Documents\Visual Studio 2015\Projects\BSP Map Generator\BSP Map Generator\obj\Debug\BSP Map Generator.csproj.GenerateResource.Cache
+C:\Users\Igor\Documents\Visual Studio 2015\Projects\BSP Map Generator\BSP Map Generator\obj\Debug\BSP Map Generator.exe
+C:\Users\Igor\Documents\Visual Studio 2015\Projects\BSP Map Generator\BSP Map Generator\obj\Debug\BSP Map Generator.pdb
